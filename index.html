@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expense Tracker — Frontend Resume Project</title>
+  <meta name="description" content="A client-side expense tracker demonstrating responsive UI, accessibility, localStorage, charts, and modern JS.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="title">💸 Expense Tracker</h1>
+    <div class="header-actions">
+      <button id="themeToggle" class="btn" aria-label="Toggle theme (T)">
+        <span class="only-light">🌙</span><span class="only-dark">☀️</span> Theme
+      </button>
+      <button id="exportBtn" class="btn" aria-label="Export data as JSON">Export</button>
+      <label class="btn file-btn" aria-label="Import data from JSON">
+        Import <input id="importInput" type="file" accept="application/json" />
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="add-expense-heading" class="card">
+      <h2 id="add-expense-heading">Add Expense</h2>
+      <form id="expenseForm" novalidate>
+        <div class="grid">
+          <label>
+            <span>Date</span>
+            <input type="date" id="date" required />
+          </label>
+          <label>
+            <span>Category</span>
+            <select id="category" required>
+              <option value="" disabled selected>Select</option>
+              <option>Food</option>
+              <option>Transport</option>
+              <option>Shopping</option>
+              <option>Bills</option>
+              <option>Entertainment</option>
+              <option>Healthcare</option>
+              <option>Education</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            <span>Amount (₹)</span>
+            <input type="number" id="amount" min="0" step="0.01" placeholder="0.00" required />
+          </label>
+          <label>
+            <span>Note</span>
+            <input type="text" id="note" maxlength="80" placeholder="Optional" />
+          </label>
+        </div>
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Add</button>
+          <p id="formHelp" class="help">Tip: press <kbd>N</kbd> to jump to amount.</p>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="filters-heading" class="card">
+      <h2 id="filters-heading">Filters</h2>
+      <div class="filters">
+        <label>
+          <span>Month</span>
+          <input type="month" id="filterMonth" />
+        </label>
+        <label>
+          <span>Category</span>
+          <select id="filterCategory">
+            <option>All</option>
+            <option>Food</option>
+            <option>Transport</option>
+            <option>Shopping</option>
+            <option>Bills</option>
+            <option>Entertainment</option>
+            <option>Healthcare</option>
+            <option>Education</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="grow">
+          <span>Search Note</span>
+          <input type="search" id="filterSearch" placeholder="Type to search… (/)" />
+        </label>
+        <button id="clearFilters" class="btn subtle">Clear</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="stats-heading" class="card">
+      <h2 id="stats-heading">Stats</h2>
+      <div class="stats-grid" role="list">
+        <div class="stat" role="listitem">
+          <div class="stat-label">Total</div>
+          <div class="stat-value" id="statTotal">₹0.00</div>
+        </div>
+        <div class="stat" role="listitem">
+          <div class="stat-label">Items</div>
+          <div class="stat-value" id="statCount">0</div>
+        </div>
+        <div class="stat" role="listitem">
+          <div class="stat-label">Average</div>
+          <div class="stat-value" id="statAvg">₹0.00</div>
+        </div>
+      </div>
+      <canvas id="chart" height="180" aria-label="Spending by category chart" role="img"></canvas>
+    </section>
+
+    <section aria-labelledby="table-heading" class="card">
+      <div class="table-header">
+        <h2 id="table-heading">Expenses</h2>
+        <div class="legend">Double-click a row to edit • <kbd>Del</kbd> deletes selected</div>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-describedby="tableHelp">
+        <table id="table" class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th class="num">Amount (₹)</th>
+              <th>Note</th>
+              <th class="actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <!-- rows render here -->
+          </tbody>
+        </table>
+      </div>
+      <p id="tableHelp" class="sr-only">Use Tab to focus actions, or double-click a row to edit inline.</p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>
+      Built with vanilla HTML/CSS/JS • Accessible • Persistent via localStorage • Keyboard: <kbd>T</kbd> theme, <kbd>/</kbd> search, <kbd>N</kbd> amount
+    </small>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

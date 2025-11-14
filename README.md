@@ -1,2 +1,2 @@
-# Expense-tracker
-📊 Expense Tracker  A simple and efficient Expense Tracker application designed to help users record, manage, and analyze their daily spending. This project provides an intuitive interface to add expenses, categorize them, view summaries, and stay on top of personal finance goals.
+# expense_tracker
+Developed a responsive and interactive Expense Tracker using HTML, CSS, and JavaScript to manage and visualize daily spending. The app allows users to add, edit, filter, and delete expenses, supports dark/light themes, localStorage persistence, and includes a custom-built bar chart for data visualization — all without external libraries.
